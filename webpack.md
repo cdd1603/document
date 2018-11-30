@@ -52,12 +52,14 @@ entry: string | [string] | object { <key>: string | [string] } | (function: () =
 ## 出口（output）
 > 所有构建目标的输出位置
 > 语法：
+```
 output: {
   path: path.resolve(__dirname, 'dist'),  //output 目录对应一个绝对路径。
   publicPath: '/', 此输出目录对应的公开 URL,
   filename: 'js/bundle.js'   // 对应js输出位置，已经bundle后文件名
   chunkFilename: '[id].[hash].js'  // 对应使用懒加载模块的输出名称
 }
+```
 ### filename 中的模板标识符
 > [name]  模块名称  如果在入口指定名称，那么name就是指定的名称，如果没有指定就是main
 > [hash]  模块标识符的 hash   sauidashudhi2137128hqisdihqq   唯一版本标识  [hash:6]  取6位
