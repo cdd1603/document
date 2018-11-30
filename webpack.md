@@ -16,5 +16,26 @@ webpack 是一个JavaScript 应用程序的静态模块打包器(static module b
 * 插件(pulgins)
 * devServer
 
+## 入口 entry
+入口起点(entry point)指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始，webpack 会找出有哪些模块和 library 是入口起点（直接和间接）依赖的。
+语法：
+entry: string | [string] | object { <key>: string | [string] } | (function: () => string | [string] | object { <key>: string | [string] })
+传递一个字符串代表一个入口
+传递数组{Array}或者对象{Object}, 代表一个或者多个入口
+
+实例
+`
+  module.exports = {
+    entry: 'app.js'
+  }
+`
+或者
+`
+  module.exports = {
+    entry: {
+      app: 'app.js'
+    }
+  }
+`
 
 
