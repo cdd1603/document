@@ -50,7 +50,7 @@ entry: string | [string] | object { <key>: string | [string] } | (function: () =
 ```
 
 ## 出口（output）
-> 所有构建目标的输出位置
+所有构建目标的输出位置
 > 语法：
 ```
 output: {
@@ -61,10 +61,82 @@ output: {
 }
 ```
 ### filename 中的模板标识符
-> [name]  模块名称  如果在入口指定名称，那么name就是指定的名称，如果没有指定就是main
-> [hash]  模块标识符的 hash   sauidashudhi2137128hqisdihqq   唯一版本标识  [hash:6]  取6位
-> [id]    模块的id值
-> [ext]   对应文件后缀
+* [name]  模块名称  如果在入口指定名称，那么name就是指定的名称，如果没有指定就是main
+* [hash]  模块标识符的 hash   sauidashudhi2137128hqisdihqq   唯一版本标识  [hash:6]  取6位
+* [id]    模块的id值
+* [ext]   对应文件后缀
+
+## 模块处理（moule）
+处理项目中的不同类型的模块。
+
+### module.noParse
+* 作用：忽略一些不需要编译的内容
+* 语法：
+```
+RegExp | [RegExp]
+RegExp | [RegExp] | function（从 webpack 3.0.0 开始）
+```
+
+* 实例：
+```
+module: {
+    noParse: /jquery|lodash/,
+
+    // 从 webpack 3.0.0 开始
+    noParse: function(content) {
+      return /jquery|lodash/.test(content);
+    }
+  }
+```
+## rules (编译规则，用来配置loader) [array]
+- 如果你想用es6，scss，less，postcss，...... 但是浏览器不支持，所以需要编译，在webpack中除了模块规范外，还可以通过loader实现类似于gulp这类工具，自动化编译功能
+
+- webpack 中提供一种处理多种文件格式的机制，便是使用 loader。我们可以把 loader 理解为是一个转换器，负责把某种文件格式的内容转换成浏览器可识别的内容。
+
+* loader 匹配规则
+```
+module: {
+  rules: [
+    {
+      test: /.js$/,  //匹配需要编译的文件类型  条件1
+      include: [path.resolve(__dirname, 'src'), ...]  // 需要被匹配的范围  条件2
+      exclude: [path.resolve(__dirname, 'node_modules'), ...]  // 不需要被匹配的范围  条件3
+      use: [
+         'style-loader',  // loader名称
+         'url-loader?limt=1000'  // loader名称和参数
+         {
+           loader: 'css-loader',  //loader 名称
+           options: {   // loader传递的参数
+             importLoaders: 1
+           }
+         },
+         {
+           loader: 'less-loader',
+           options: {
+             noIeCompat: true
+           }
+         }
+       ]
+    }
+  ]
+}
+```
+* 常用loader
+```
+babel-loader  url-laoder  css-loader style-loader  sass-loader less-loader postcss-loader .....
+```
+
+## 插件  (plugins)
+除了编译任务外的其他任务
+
+
+
+
+
+
+
+
+
 
 
 
